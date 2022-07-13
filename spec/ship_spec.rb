@@ -3,8 +3,8 @@ require './lib/ship'
 
 describe Ship do
   before :each do
-    @boat_1 = Ship.new('Cruiser', 3)
-    @boat_2 = Ship.new('Submarine', 2)
+    boat_1 = Ship.new('Cruiser', 3)
+    boat_2 = Ship.new('Submarine', 2)
   end
 
   context 'Ship basic characteristics'do
@@ -46,3 +46,4 @@ describe Ship do
     end
   end
 end
+
