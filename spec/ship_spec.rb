@@ -14,7 +14,7 @@ describe Ship do
 
     it'@boats should have unique names'do
       expect(@boat_1.name).to eq('Cruiser')
-      expect(@boat_2.name).to eq('Submarine') 
+      expect(@boat_2.name).to eq('Submarine')
     end
 
     it'@boats should have a unique lenghts'do
@@ -30,7 +30,7 @@ describe Ship do
     end
 
     it'should inform if boat is hit'do
-        @boat_1.hit  
+        @boat_1.hit
       expect(@boat_1.health).to eq(2)
         @boat_2.hit
       expect(@boat_2.health).to eq(1)
@@ -39,11 +39,10 @@ describe Ship do
     it'should inform if boat is sunk'do
       expect(@boat_1.sunk?).to eq(false)
       expect(@boat_2.sunk?).to eq(false)
-        @boat_1.hit 
-        @boat_1.hit 
-        @boat_1.hit 
+        @boat_1.hit
+        @boat_1.hit
+        @boat_1.hit
       expect(@boat_1.sunk?).to eq(true)
     end
   end
 end
-
