@@ -53,8 +53,6 @@ RSpec.describe Cell do
 
     cell_5.fire_upon
     expect(cell_5.render).to eq("X")
-
-    require 'pry'; binding.pry
   end
 
 
