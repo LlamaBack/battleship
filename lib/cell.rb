@@ -23,7 +23,6 @@ class Cell
     if @ship != nil
       @ship.hit
     end
-
     @struck = true
   end
 
@@ -41,9 +40,4 @@ class Cell
       "H"
     end
   end
-
-
-
-
-
 end
