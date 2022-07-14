@@ -20,14 +20,14 @@ class Board
       end
   end
      
-     def valid_placement?()#developing
+  def valid_placement?()#developing
       cruiser = Ship.new("Cruiser", 3)
       submarine = Ship.new("Submarine", 2) 
 
       cruiser == @cells.()
       #boat is equal to three spots on the board 
 
-     end
+  end
 
 end
 
