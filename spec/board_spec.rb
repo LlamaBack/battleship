@@ -17,24 +17,28 @@ RSpec.describe Board do
   end #cells are coordinates on the board
 
   it 'should inform if a coordinate is on the board' do
-    expect(board.valid_coordinate?('A1')).to eq(true)
-    expect(board.valid_coordinate?('D4')).to eq(true)
-    expect(board.valid_coordinate?('A5')).to eq(false)
-    expect(board.valid_coordinate?('E1')).to eq(false)
-    expect(board.valid_coordinate?('A22')).to eq(false)
-    expect(board.valid_coordinate?('a1')).to eq(false)
+    expect(@board.valid_coordinate?('A1')).to eq(true)
+    expect(@board.valid_coordinate?('D4')).to eq(true)
+    expect(@board.valid_coordinate?('A5')).to eq(false)
+    expect(@board.valid_coordinate?('E1')).to eq(false)
+    expect(@board.valid_coordinate?('A22')).to eq(false)
+    expect(@board.valid_coordinate?('a1')).to eq(false)
   end
 
-  xit 'should inform if a placement for a ship on the board is valid or not' do
-  #check if boat & size completely fits within board
+  it 'should inform if a placement for a ship on the board is valid or not' do
     cruiser = Ship.new("Cruiser", 3)
-    cruiser_place = ["A1", "A2", "A3"]
+    submarine = Ship.new("Submarine", 2)
 
-    submarine = Ship.new("Submrine", 2)
-    submarine_place = ["B1", "C1"]
+    expect(cruiser.length).to eq(["A1", "A2", "A3"].length)
+    expect(submarine.length).to eq(["B1", "C1"].length)
 
-    expect(@board.valid_placement(cruiser, cruiser_place)).to eq(true)
-    expect(@board.valid_placement(submarine, submarine_place)).to eq(true)
+    expect(@board.valid_placement?(cruiser, ["A1", "A2", "A3"])).to eq(true)
+    expect(@board.valid_placement?(submarine, ["B1", "C1"])).to eq(true)
+
+    expect(@board.valid_placement?(cruiser, ["A1", "A2", "A5"])).to eq(false)
+    expect(@board.valid_placement?(submarine, ["B1", "D1"])).to eq(false)
+    expect(@board.valid_placement?(cruiser, ["A3", "A2", "A1"])).to eq(false)
+    expect(@board.valid_placement?(submarine, ["C1", "B1"])).to eq(false)
 
   end
 
