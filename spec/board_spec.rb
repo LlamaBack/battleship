@@ -5,8 +5,7 @@ require './lib/cell'
 
 RSpec.describe Board do
   before :each do
-    @cell_id = Board.new('A1')
-    
+    @cell_id = Board.new()
   end
 
   it 'class should exist' do
@@ -18,29 +17,29 @@ RSpec.describe Board do
   end #cells are coordinates on the board
 
   it 'should inform if a coordinate is on the board' do
-      board_cell = Board.new('A1')
+      board_cell = Board.new()
     expect(board_cell.valid_coordinate?('A1')).to eq(true)
-      board_cell = Board.new('D4')
+      board_cell = Board.new()
     expect(board_cell.valid_coordinate?('D4')).to eq(true)
-      board_cell = Board.new('A5')
+      board_cell = Board.new()
     expect(board_cell.valid_coordinate?('A5')).to eq(false)
-      board_cell = Board.new('E1')
+      board_cell = Board.new()
     expect(board_cell.valid_coordinate?('E1')).to eq(false)
-      board_cell = Board.new('A22')
+      board_cell = Board.new()
     expect(board_cell.valid_coordinate?('A22')).to eq(false)
-      board_cell = Board.new('a1')#false b/c the letter is not capitalized
+      board_cell = Board.new()#false b/c the letter is not capitalized
     expect(board_cell.valid_coordinate?('a1')).to eq(false) 
   end
 
-  it 'should inform if a placement for a ship is valid or not' do
-    cruiser = Ship.new("Cruiser", 3)
-    submarine = Ship.new("Submarine", 2) 
+  # it 'should inform if a placement for a ship on the board is valid or not' do
+  # #check if boat & size completely fits within board
+  #     cruiser = Ship.new("Cruiser", 3)
+  #     submarine = Ship.new("Submarine", 2) 
 
-    board_cell = Board.new('E1')
+  #   board_cell = Board.new('E1')
   
-    valid_coordinate?
-    expect().to eq()
-  end
+  #   expect().to eq()
+  # end
 
 
 end
