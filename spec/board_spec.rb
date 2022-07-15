@@ -50,8 +50,3 @@ RSpec.describe Board do
 
 
 end
-
-
-# it '' do
-  # expect().to eq()
-# end

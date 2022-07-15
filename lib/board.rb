@@ -19,7 +19,7 @@ class Board
         false
       end
   end
-
+  
   def valid_placement?(ship, placements)#developing
     if ship.length != placements.length
       return false
