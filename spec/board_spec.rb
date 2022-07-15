@@ -5,41 +5,48 @@ require './lib/cell'
 
 RSpec.describe Board do
   before :each do
-    @cell_id = Board.new()
+    @board = Board.new()
   end
 
   it 'class should exist' do
-    expect(@cell_id).to be_an_instance_of(Board)
+    expect(@board).to be_an_instance_of(Board)
   end
 
   it 'the cells should be link back to the Cell class'do
-    expect(@cell_id.cells['A1']).to be_an_instance_of Cell
+    expect(@board.cells['A1']).to be_an_instance_of Cell
   end #cells are coordinates on the board
 
   it 'should inform if a coordinate is on the board' do
-      board_cell = Board.new()
-    expect(board_cell.valid_coordinate?('A1')).to eq(true)
-      board_cell = Board.new()
-    expect(board_cell.valid_coordinate?('D4')).to eq(true)
-      board_cell = Board.new()
-    expect(board_cell.valid_coordinate?('A5')).to eq(false)
-      board_cell = Board.new()
-    expect(board_cell.valid_coordinate?('E1')).to eq(false)
-      board_cell = Board.new()
-    expect(board_cell.valid_coordinate?('A22')).to eq(false)
-      board_cell = Board.new()#false b/c the letter is not capitalized
-    expect(board_cell.valid_coordinate?('a1')).to eq(false) 
+    expect(@board.valid_coordinate?('A1')).to eq(true)
+    expect(@board.valid_coordinate?('D4')).to eq(true)
+    expect(@board.valid_coordinate?('A5')).to eq(false)
+    expect(@board.valid_coordinate?('E1')).to eq(false)
+    expect(@board.valid_coordinate?('A22')).to eq(false)
+    expect(@board.valid_coordinate?('a1')).to eq(false)
   end
 
-  # it 'should inform if a placement for a ship on the board is valid or not' do
-  # #check if boat & size completely fits within board
-  #     cruiser = Ship.new("Cruiser", 3)
-  #     submarine = Ship.new("Submarine", 2) 
+  it 'should inform if a placement for a ship on the board is valid or not' do
+    cruiser = Ship.new("Cruiser", 3)
+    submarine = Ship.new("Submarine", 2)
 
-  #   board_cell = Board.new('E1')
-  
-  #   expect().to eq()
-  # end
+    #ship length equals coordinates length
+    expect(cruiser.length).to eq(["A1", "A2", "A3"].length)
+    expect(submarine.length).to eq(["B1", "C1"].length)
+
+    #coordinates are consecutive
+    expect(@board.valid_placement?(cruiser, ["A1", "A2", "A5"])).to eq(false)
+    expect(@board.valid_placement?(submarine, ["B1", "D1"])).to eq(false)
+    expect(@board.valid_placement?(cruiser, ["A3", "A2", "A1"])).to eq(false)
+    expect(@board.valid_placement?(submarine, ["C1", "B1"])).to eq(false)
+
+    #coordinates are not diagonal
+    expect(@board.valid_placement?(cruiser, ["A1", "B2", "C3"])).to eq(false)
+    expect(@board.valid_placement?(cruiser, ["C2", "D3"])).to eq(false)
+
+    #valid placements
+    expect(@board.valid_placement?(cruiser, ["B1", "C1", "D1"])).to eq(true)
+    expect(@board.valid_placement?(submarine, ["A1", "A2"])).to eq(true)
+  end
 
 
 end
