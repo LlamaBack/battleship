@@ -23,21 +23,12 @@ class Board
   def valid_placement?(ship, placements)#developing
     if ship.length != placements.length
       return false
-      ["A1", "A2", "A3"] -> [["A1","A2"],["A2","A3"]]
-    elsif !placements.each_cons(2).all? {|a, b| (b[0] == a[0].next) ^ (b[1].to_i == a[1].to_i + 1)}
-                                                  "A" == "A".next
+    elsif !placements.each_cons(2).all? do |coord_1, coord_2|
+      (coord_2[0] == coord_1[0].next) ^ (coord_2[1] == coord_1[1].next) end
       return false
     end
 
-
-
-
     return true
-      # cruiser = Ship.new("Cruiser", 3)
-      # submarine = Ship.new("Submarine", 2)
-      #
-      # cruiser == @cells.()
-      # #boat is equal to three spots on the board
   end
 
 end
