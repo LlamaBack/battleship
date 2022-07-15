@@ -20,13 +20,19 @@ class Board
       end
   end
      
-  def valid_placement?()#developing
-      cruiser = Ship.new("Cruiser", 3)
-      submarine = Ship.new("Submarine", 2) 
 
-      cruiser == @cells.()
-      #boat is equal to three spots on the board 
-
+  def valid_placement?(ship, boat_placement)
+    if ship.length != boat_placement.length 
+      return false
+    elsif 
+      !boat_placement.each_cons(2).all? do 
+        |cord_1, cord_2| ((cord_2[0] == cord_1[0].next) ^ (cord_2[1] == cord_1[1].next))end
+        return false
+      end
+  #for the placement array>check 2 elements across for consq. numbs for full array
+#|coordinate one, coordinate two| ((cord2[index position 0])) compared it to cord1's index position 0
+      #breaking down arayu into index position 
+    return true
   end
 
 end
