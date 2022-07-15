@@ -1,4 +1,4 @@
-require './lib/cell' #confirm the file name
+crequire './lib/cell' #confirm the file name
 
 RSpec.describe Cell do
   it 'Cell class should exist' do

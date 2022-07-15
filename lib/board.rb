@@ -2,7 +2,7 @@ require './lib/cell'
 require './lib/ship'
 
 class Board
-  attr_reader :cells
+  attr_reader :cells, :place
   def initialize()#we did not need cells in the () as we dont actually use it
     @cells = {
       'A1'=>Cell.new('A1'),'A2'=>Cell.new('A2'),'A3'=>Cell.new('A3'),'A4'=>Cell.new('A4'),
@@ -27,8 +27,15 @@ class Board
       (coord_2[0] == coord_1[0].next) ^ (coord_2[1] == coord_1[1].next) end
       return false
     end
-
     return true
   end
+
+  def place(boat, dots)#dots represents spaces on board
+      dots.each do |dot| #process through dots>look at the dot argument
+        @cells[dot].place_ship(boat)#place the ship into dot 
+      end
+  end
+
+
 
 end
