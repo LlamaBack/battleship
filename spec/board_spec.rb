@@ -94,4 +94,16 @@ RSpec.describe Board do
     )
   end
 
+  it 'renders any size board' do
+    custom_board = Board.new(true)
+    expect(@board.render).to eq(
+      "  1 2 3 4 5 \n" +
+      "A . . . . . \n" +
+      "B . . . . . \n" +
+      "C . . . . . \n" +
+      "D . . . . . \n" +
+      "E . . . . . \n"
+    )
+  end
+
 end
