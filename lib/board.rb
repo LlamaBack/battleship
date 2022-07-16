@@ -19,12 +19,16 @@ class Board
         false
       end
   end
-  
+
   def valid_placement?(ship, placements)#developing
+    # require 'pry';binding.pry
     if ship.length != placements.length
       return false
     elsif !placements.each_cons(2).all? do |coord_1, coord_2|
       (coord_2[0] == coord_1[0].next) ^ (coord_2[1] == coord_1[1].next) end
+      return false
+    elsif !placements.all? do |placement|
+      @cells[placement].empty? end
       return false
     end
     return true
@@ -32,8 +36,16 @@ class Board
 
   def place(boat, dots)#dots represents spaces on board
       dots.each do |dot| #process through dots>look at the dot argument
-        @cells[dot].place_ship(boat)#place the ship into dot 
+        @cells[dot].place_ship(boat)#place the ship into dot
       end
+  end
+
+  def render(actual = false)
+    rend = "  1 2 3 4 \n" +
+    "A #{@cells["A1"].render(actual)} #{@cells["A2"].render(actual)} #{@cells["A3"].render(actual)} #{@cells["A4"].render(actual)} \n" +
+    "B #{@cells["B1"].render(actual)} #{@cells["B2"].render(actual)} #{@cells["B3"].render(actual)} #{@cells["B4"].render(actual)} \n" +
+    "C #{@cells["C1"].render(actual)} #{@cells["C2"].render(actual)} #{@cells["C3"].render(actual)} #{@cells["C4"].render(actual)} \n" +
+    "D #{@cells["D1"].render(actual)} #{@cells["D2"].render(actual)} #{@cells["D3"].render(actual)} #{@cells["D4"].render(actual)} \n"
   end
 
 
