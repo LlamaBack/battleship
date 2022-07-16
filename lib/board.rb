@@ -15,7 +15,7 @@ class Board
       @col.times {
         @y = 1
         @row.times {
-          @cells[@x + @y.to_s] = Cell.new('A1')
+          @cells[@x + @y.to_s] = Cell.new(@x + @y.to_s)
           @y += 1
         }
         @x = @x.next
@@ -29,6 +29,7 @@ class Board
         'D1'=>Cell.new('D1'),'D2'=>Cell.new('D2'),'D3'=>Cell.new('D3'),'D4'=>Cell.new('D4')
       }
     end
+
   end
 
   def valid_coordinate?(place_on_board)
@@ -38,18 +39,19 @@ class Board
         false
       end
   end
-
-  def valid_placement?(ship, placements)#developing
-    # require 'pry';binding.pry
+  
+  def valid_placement?(ship, placements)
     if ship.length != placements.length
       return false
     elsif !placements.each_cons(2).all? do |coord_1, coord_2|
       (coord_2[0] == coord_1[0].next) ^ (coord_2[1] == coord_1[1].next) end
       return false
-    elsif !placements.all? do |placement|
-      @cells[placement].empty? end
+
+    elsif !placements.all? { |dot| @cells[dot].empty? }     
       return false
     end
+# check all cells; # if they are empty/not occupied, return false
+
     return true
   end
 
