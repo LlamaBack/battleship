@@ -10,6 +10,7 @@ class Board
       'C1'=>Cell.new('C1'),'C2'=>Cell.new('C2'),'C3'=>Cell.new('C3'),'C4'=>Cell.new('C4'),
       'D1'=>Cell.new('D1'),'D2'=>Cell.new('D2'),'D3'=>Cell.new('D3'),'D4'=>Cell.new('D4'),
     }
+    # @empty = true
   end
 
   def valid_coordinate?(place_on_board)
@@ -20,13 +21,19 @@ class Board
       end
   end
   
-  def valid_placement?(ship, placements)#developing
+  def valid_placement?(ship, placements)
     if ship.length != placements.length
       return false
     elsif !placements.each_cons(2).all? do |coord_1, coord_2|
       (coord_2[0] == coord_1[0].next) ^ (coord_2[1] == coord_1[1].next) end
       return false
+
+    elsif !placements.all? { |dot| @cells[dot].empty? }
+      # require 'pry';binding.pry
+      return false
     end
+# check all cells; # if they are empty/not occupied, return false
+
     return true
   end
 

@@ -68,8 +68,15 @@ RSpec.describe Board do
 
 
 
-it '' do
+it 'should not allow ships to overlap' do
+    cruiser = Ship.new("Cruiser", 3)
+    submarine = Ship.new("Submarine", 2)
 
+    @board.place(cruiser, ["A1", "A2", "A3"])
+    # @board.place(submarine,["A1", "B1"]
+    # require 'pry';binding.pry
+    expect(@board.valid_placement?(submarine, ["A1", "B1"])).to be false
+    # require 'pry';binding.pry
 end
 
 end
