@@ -27,7 +27,6 @@ class Cell
   end
 
   def render(option = false)
-
     if !fired_upon? && option && !empty?
       "S"
     elsif !fired_upon? 

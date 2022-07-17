@@ -50,14 +50,13 @@ RSpec.describe Board do
 
 
   it 'the board should be able to place a ship in its cells' do
-      #multiple Cells will contain the same ship
-
-    cruiser = Ship.new("Cruiser", 3) 
+    #multiple Cells will contain the same ship
+    cruiser = Ship.new("Cruiser", 3)
     @board.place(cruiser, ["A1", "A2", "A3"])
 
     cell_1 = @board.cells["A1"]
     cell_2 = @board.cells["A2"]
-    cell_3 = @board.cells["A3"] 
+    cell_3 = @board.cells["A3"]
 
     expect(cell_3.ship == cell_2.ship).to eq true
     expect(cell_2.ship == cell_1.ship).to eq true
@@ -66,17 +65,45 @@ RSpec.describe Board do
     expect(cell_3.ship).to eq cruiser
   end
 
-
-
-it 'should not allow ships to overlap' do
+  it 'valid placements checks if a ship would overlap with another' do
     cruiser = Ship.new("Cruiser", 3)
-    submarine = Ship.new("Submarine", 2)
     @board.place(cruiser, ["A1", "A2", "A3"])
-   
     # require 'pry';binding.pry
-    expect(@board.valid_placement?(submarine, ["A1", "B1"])).to be false
-    # require 'pry';binding.pry
-end
+
+    submarine = Ship.new("Submarine", 2)
+    expect(@board.valid_placement?(submarine, ["A1", "B1"])).to eq(false)
+  end
+
+  it 'render prints out the whole board' do
+    cruiser = Ship.new("Cruiser", 3)
+    @board.place(cruiser, ["A1", "A2", "A3"])
+    expect(@board.render).to eq(
+      "  1 2 3 4 \n" +
+      "A . . . . \n" +
+      "B . . . . \n" +
+      "C . . . . \n" +
+      "D . . . . \n"
+    )
+    expect(@board.render(true)).to eq(
+      "  1 2 3 4 \n" +
+      "A S S S . \n" +
+      "B . . . . \n" +
+      "C . . . . \n" +
+      "D . . . . \n"
+    )
+  end
+
+  it 'renders any size board' do
+    custom_board = Board.new(true)
+    expect(@board.render).to eq(
+      "  1 2 3 4 5 \n" +
+      "A . . . . . \n" +
+      "B . . . . . \n" +
+      "C . . . . . \n" +
+      "D . . . . . \n" +
+      "E . . . . . \n"
+    )
+  end
 
 it 'should display the cells status in a formatted grid. ' do
   cruiser = Ship.new("Cruiser", 3)
