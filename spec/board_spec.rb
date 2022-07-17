@@ -105,4 +105,28 @@ RSpec.describe Board do
     )
   end
 
+it 'should display the cells status in a formatted grid. ' do
+  cruiser = Ship.new("Cruiser", 3)
+  @board.place(cruiser, ["A1", "A2", "A3"])
+  # require 'pry';binding.pry
+
+  expect(@board.render).to eq(
+  "  1 2 3 4 \n" +
+  "A . . . . \n" +
+  "B . . . . \n" +
+  "C . . . . \n" +
+  "D . . . . \n")
+  @board.place(cruiser, ["A1", "A2", "A3"])
+  # require 'pry';binding.pry
+  expect(@board.render(true)).to eq(
+  "  1 2 3 4 \n" +
+  "A S S S . \n" +
+  "B . . . . \n" +
+  "C . . . . \n" +
+  "D . . . . \n")
+# require 'pry';binding.pry
+end
+
+
+
 end
