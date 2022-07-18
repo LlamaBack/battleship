@@ -25,12 +25,25 @@ class Game
   end
 
   def gamestart
+    ship1 = Ship.new("Cruiser", 3)
+    ship2 = Ship.new("Submarine", 2)
+    @comp_board.place_rand(ship1)
+    @comp_board.place_rand(ship2)
     puts 'I have laid out my ships on the grid.'
-
-    puts 'GAME HAS ENDED'
+    puts 'You now need to lay out your two ships.'
+    puts 'The Cruiser is three units long and the Submarine is two units long.'
+    player_setup
   end
 
-  def comp_setup
-    @comp_board
+  def player_setup
+    ship1 = Ship.new("Cruiser", 3)
+    ship2 = Ship.new("Submarine", 2)
+    @player_board.render
+    puts "Enter the squares for the Cruiser (3 spaces):"
+    @hello = gets.chomp.split
+        require 'pry'; pry.binding
+
+    @player_board.place(ship1, gets.chomp.split)
+
   end
 end
