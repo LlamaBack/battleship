@@ -12,7 +12,7 @@ class Game
       puts 'Enter p to play. Enter q to quit.'
       @start = gets.chomp
       if @start == 'p'
-        gamestart
+        comp_setup
       elsif @start == 'q'
         puts 'Goodbye.'
         break
@@ -24,7 +24,7 @@ class Game
 
   end
 
-  def gamestart
+  def comp_setup
     ship1 = Ship.new("Cruiser", 3)
     ship2 = Ship.new("Submarine", 2)
     @comp_board.place_rand(ship1)
@@ -38,12 +38,24 @@ class Game
   def player_setup
     ship1 = Ship.new("Cruiser", 3)
     ship2 = Ship.new("Submarine", 2)
-    @player_board.render
+    puts @player_board.render
     puts "Enter the squares for the Cruiser (3 spaces):"
-    @hello = gets.chomp.split
-        require 'pry'; pry.binding
+    coord = gets.chomp.split
+    while !@player_board.valid_placement?(ship1, coord)
+      puts "Those are invalid coordinates. Please try again:"
+      coord = gets.chomp.split
+    end
+    @player_board.place(ship1, coord)
+    puts @player_board.render(true)
 
-    @player_board.place(ship1, gets.chomp.split)
+    puts "Enter the squares for the Submarine (2 spaces):"
+    coord = gets.chomp.split
+    while !@player_board.valid_placement?(ship2, coord)
+      puts "Those are invalid coordinates. Please try again:"
+      coord = gets.chomp.split
+    end
+    @player_board.place(ship2, coord)
+    puts @player_board.render(true)
 
   end
 end
