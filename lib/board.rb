@@ -11,7 +11,6 @@ class Board
       @col = gets.chomp
       puts "How many rows?"
       @row = gets.chomp
-
       @x = "A"
       @col.times {
         @y = 1
@@ -21,7 +20,6 @@ class Board
         }
         @x = @x.next
       }
-
     else
       @cells = {
         'A1'=>Cell.new('A1'),'A2'=>Cell.new('A2'),'A3'=>Cell.new('A3'),'A4'=>Cell.new('A4'),
@@ -33,11 +31,7 @@ class Board
   end
 
   def valid_coordinate?(place_on_board)
-      if @cells.has_key?(place_on_board)
-        true
-      else
-        false
-      end
+    @cells.has_key?(place_on_board)
   end
 
   def valid_placement?(ship, placements)

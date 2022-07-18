@@ -3,7 +3,7 @@ class Cell
   attr_reader :coordinate, :ship
   def initialize(coordinate)
     @coordinate = coordinate
-    @ship 
+    @ship
     @struck = false
   end
 
@@ -20,8 +20,11 @@ class Cell
   end
 
   def fire_upon
-    if @ship != nil
+    if @ship != 
       @ship.hit
+      puts "Your shot on #{coordinate} was a hit!"
+    else
+      puts "Your shot on #{coordinate} was a miss."
     end
     @struck = true
   end
@@ -29,7 +32,7 @@ class Cell
   def render(option = false)
     if !fired_upon? && option && !empty?
       "S"
-    elsif !fired_upon? 
+    elsif !fired_upon?
       "."
     elsif fired_upon? && empty?
       "M"
