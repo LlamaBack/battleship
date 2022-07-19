@@ -5,7 +5,8 @@ class Board
   attr_reader :cells, :place
   
   def initialize(custom = false)#we did not need cells in the () as we dont actually use it
-    @cells = {}
+    @cells = 
+    {}
     if custom
       puts "How many collumns?"
       @col = gets.chomp
@@ -51,7 +52,6 @@ class Board
     elsif !placements.all? { |dot| @cells[dot].empty? }     
       return false
     end
-    
     return true
   end
 
@@ -68,8 +68,4 @@ class Board
     "C #{@cells["C1"].render(actual)} #{@cells["C2"].render(actual)} #{@cells["C3"].render(actual)} #{@cells["C4"].render(actual)} \n" +
     "D #{@cells["D1"].render(actual)} #{@cells["D2"].render(actual)} #{@cells["D3"].render(actual)} #{@cells["D4"].render(actual)} \n"
   end
-
-
-  end
-
 end

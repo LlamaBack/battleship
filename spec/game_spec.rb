@@ -1,14 +1,26 @@
 require './lib/game'
 
 RSpec.describe Game do
+  before :each do
+    @game = Game.new
+  end
+  
+  
   it 'Game exists' do
-    game = Game.new
-    expect(game).to be_an_instance_of(Game)
+    expect(@game).to be_an_instance_of Game
   end
 
   it 'Game has a welcome message' do
-    game = Game.new
-    expect(game).to output('Welcome to BATTLESHIP').to_stdout
-    expect(game).to output('Enter p to play. Enter q to quit.').to_stdout
-  end
+    # expect(@game.welcome).to eq('Welcome to BATTLESHIP')
+    expect(@game.messages).to eq(
+    "Welcome to BATTLESHIP \n" + 
+    "Enter p to play. Enter q to quit.")
+    require 'pry';binding.pry
+    end
+
+    # it '' do
+    #   expect 
+    # end
+
+
 end
