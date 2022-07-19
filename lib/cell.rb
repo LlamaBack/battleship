@@ -20,7 +20,8 @@ class Cell
   end
 
   def fire_upon
-    if @ship != 
+    
+    if @ship != nil
       @ship.hit
       puts "Your shot on #{coordinate} was a hit!"
     else
