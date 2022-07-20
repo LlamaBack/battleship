@@ -48,8 +48,8 @@ class Board
     return true
   end
 
-  def place(ship, cells)#dots represents spaces on
-    cells.each do |cell| #process through dots>look at the dot argument
+  def place(ship, cells)#cells represents spaces on
+    cells.each do |cell| #process through cells>look at the cell argument
       @cells[cell].place_ship(ship)#place the ship into dot
     end
   end
