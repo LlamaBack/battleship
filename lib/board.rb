@@ -3,7 +3,6 @@ require "./lib/ship"
 
 class Board
   attr_reader :cells
-<<<<<<< HEAD
 
   def initialize(col = 4, row = 4)
     @cells = {}
@@ -15,24 +14,6 @@ class Board
       @col.to_i.times {
         @cells[@y + @x.to_s] = Cell.new(@y + @x.to_s)
         @x += 1
-=======
-  def initialize(custom = false)
-    @cells = 
-    {}
-    if custom
-      puts "How many collumns?"
-      @col = gets.chomp
-      puts "How many rows?"
-      @row = gets.chomp
-      @x = "A"
-      @col.times {
-        @y = 1
-        @row.times {
-          @cells[@x + @y.to_s] = Cell.new(@x + @y.to_s)
-          @y += 1
-        }
-        @x = @x.next
->>>>>>> 7f131e0d5f2e04ff5b52febd89c9aaa2a980512a
       }
       @y = @y.next
     }
@@ -50,21 +31,15 @@ class Board
     elsif !placements.each_cons(2).all? do |coord_1, coord_2|
       (coord_2.delete("^A-Z") == coord_1.delete("^A-Z").next) ^ (coord_2.delete("^0-9") == coord_1.delete("^0-9").next) end
       return false
-    elsif !placements.all? { |cell| @cells[cell].empty? }
+    elsif !placements.all? { |dot| @cells[dot].empty? }
       return false
     end
     return true
   end
 
-<<<<<<< HEAD
   def place(boat, dots)#dots represents spaces on
     dots.each do |dot| #process through dots>look at the dot argument
       @cells[dot].place_ship(boat)#place the ship into dot
-=======
-  def place(ship, cells)#cells represents spaces on
-    cells.each do |cell| #process through cells>look at the cell argument
-      @cells[cell].place_ship(ship)#place the ship into dot
->>>>>>> 7f131e0d5f2e04ff5b52febd89c9aaa2a980512a
     end
   end
 

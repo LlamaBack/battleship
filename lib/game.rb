@@ -21,7 +21,8 @@ class Game
           puts "How many rows"
           row = gets.chomp.to_i
 
-          @ships = []
+          @comp_ships = []
+          @player_ships = []
           puts "How many ships?"
           num_ships = gets.chomp.to_i
           ship_num = 0
@@ -30,10 +31,11 @@ class Game
             name = gets.chomp
             puts "What is the length of that ship?"
             length = gets.chomp.to_i
-            @ships << Ship.new(name, length)
+            @comp_ships << Ship.new(name, length)
+            @player_ships << Ship.new(name, length)
           end
-          @comp = Computer.new(col, row, @ships)
-          @player = Player.new(col, row, @ships)
+          @comp = Computer.new(col, row, @comp_ships)
+          @player = Player.new(col, row, @player_ships)
         else
           @comp = Computer.new
           @player = Player.new
