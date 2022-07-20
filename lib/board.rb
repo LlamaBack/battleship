@@ -2,8 +2,8 @@ require "./lib/cell"
 require "./lib/ship"
 
 class Board
-  attr_reader :cells, :place
-  
+  attr_reader :cells
+
   def initialize(custom = false)#we did not need cells in the () as we dont actually use it
     @cells = {}
     if custom
@@ -39,26 +39,55 @@ class Board
         false
       end
   end
-  
+
   def valid_placement?(ship, placements)
     if ship.length != placements.length
       return false
-    
+    elsif placements.any? {|coord| !@cells.key?(coord)}
+      return false
     elsif !placements.each_cons(2).all? do |coord_1, coord_2|
       (coord_2[0] == coord_1[0].next) ^ (coord_2[1] == coord_1[1].next) end
       return false
-
-    elsif !placements.all? { |dot| @cells[dot].empty? }     
+    elsif !placements.all? { |dot| @cells[dot].empty? }
       return false
     end
-    
     return true
   end
 
-  def place(boat, dots)#dots represents spaces on board
-      dots.each do |dot| #process through dots>look at the dot argument
-        @cells[dot].place_ship(boat)#place the ship into dot
+  def place(boat, dots)#dots represents spaces on
+
+
+    dots.each do |dot| #process through dots>look at the dot argument
+      @cells[dot].place_ship(boat)#place the ship into dot
+    end
+
+
+  end
+
+  def place_rand(ship)
+    vertical = [true, false].sample
+    keys = @cells.keys
+    starting_coord = keys[rand(keys.size)]
+    placements = [starting_coord]
+
+    (ship.length - 1).times do
+      # require 'pry'; binding.pry
+      if vertical
+        placements << "#{starting_coord[0].next}#{starting_coord[1]}"
+        starting_coord = "#{starting_coord[0].next}#{starting_coord[1]}"
+      elsif !vertical
+        placements << starting_coord.next
+        starting_coord = starting_coord.next
       end
+    end
+    # require 'pry'; binding.pry
+
+    if !valid_placement?(ship, placements)
+      place_rand(ship)
+    else
+      place(ship,placements)
+    end
+
   end
 
   def render(actual = false)
@@ -67,9 +96,6 @@ class Board
     "B #{@cells["B1"].render(actual)} #{@cells["B2"].render(actual)} #{@cells["B3"].render(actual)} #{@cells["B4"].render(actual)} \n" +
     "C #{@cells["C1"].render(actual)} #{@cells["C2"].render(actual)} #{@cells["C3"].render(actual)} #{@cells["C4"].render(actual)} \n" +
     "D #{@cells["D1"].render(actual)} #{@cells["D2"].render(actual)} #{@cells["D3"].render(actual)} #{@cells["D4"].render(actual)} \n"
-  end
-
-
   end
 
 end
