@@ -27,28 +27,31 @@ class Computer
     if cell.fired_upon?
       fire_random_shot
     else
-      if cell.empty?
-        puts "Your shot on #{random_coord} was a miss."
-      elsif cell.ship.health == 1
-        puts "Your shot on #{random_coord} sank the #{cell.ship.name}!"
-      elsif !cell.empty?
-        puts "Your shot on #{random_coord} was a hit!"
-      end
       cell.fire_upon
+      if cell.empty?
+        return "Your shot on #{random_coord} was a miss."
+      elsif cell.ship.health == 1
+        return "Your shot on #{random_coord} sank the #{cell.ship.name}!"
+      elsif !cell.empty?
+        return "Your shot on #{random_coord} was a hit!"
+      end
     end
   end
 
   def fire_shot(coord)
     cell = @board.cells[coord]
     if cell.fired_upon?
-      puts "You have already shot on #{coord}. Please pay attention."
-    elsif cell.empty?
-      puts "Your shot on #{coord} was a miss."
-    elsif cell.ship.health == 1
-      puts "Your shot on #{coord} sank the #{cell.ship.name}!"
-    elsif !cell.empty?
-      puts "Your shot on #{coord} was a hit!"
+      return "You have already shot on #{coord}. Please pay attention."
     end
+
     cell.fire_upon
+    if cell.empty?
+      return "Your shot on #{coord} was a miss."
+    elsif cell.ship.health == 1
+      return "Your shot on #{coord} sank the #{cell.ship.name}!"
+    elsif !cell.empty?
+      return "Your shot on #{coord} was a hit!"
+    end
+
   end
 end

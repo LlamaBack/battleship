@@ -91,8 +91,7 @@ RSpec.describe Board do
   end
 
   #***input from user required***
-  
-  it 'renders any size board' do
+    it 'renders any size board' do
     custom_board = Board.new(true)
     expect(board.render).to eq(
       "  1 2 3 4 5 \n" +
@@ -105,7 +104,6 @@ RSpec.describe Board do
   end
 
   it 'should display the cells status in a formatted grid. ' do
-
     board.place(cruiser, ["A1", "A2", "A3"])
     # require 'pry';binding.pry
 
@@ -125,7 +123,4 @@ RSpec.describe Board do
     "D . . . . \n")
   # require 'pry';binding.pry
   end
-
-
-
 end
