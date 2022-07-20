@@ -7,58 +7,56 @@ require './lib/player'
 class Game
   def initialize
     @start = 'p'
-
     while @start == 'p'
       puts 'Welcome to BATTLESHIP'
       puts 'Enter p to play. Enter q to quit.'
       @start = gets.chomp
-        if @start == 'p'
+      if @start == 'p'
+        puts "Enter c for Custom Board. Enter any other button for Standard Board."
+        option = gets.chomp
+        if option == 'c'
+          puts "How many columns?"
+          col = gets.chomp.to_i
+          puts "How many rows"
+          row = gets.chomp.to_i
+
+          @comp_ships = []
+          @player_ships = []
+          puts "How many ships?"
+          num_ships = gets.chomp.to_i
+          ship_num = 0
+          num_ships.times do
+            puts "What is the name of ship #{ship_num += 1}?"
+            name = gets.chomp
+            puts "What is the length of that ship?"
+            length = gets.chomp.to_i
+            @comp_ships << Ship.new(name, length)
+            @player_ships << Ship.new(name, length)
+          end
+          @comp = Computer.new(col, row, @comp_ships)
+          @player = Player.new(col, row, @player_ships)
+        else
           @comp = Computer.new
           @player = Player.new
-          game_start
-          
-        elsif @start == 'q'
-          puts 'Goodbye.'
-          break
-        
+        end
+        game_start
+      elsif @start == 'q'
+        puts 'Goodbye.'
+        break
       else
         puts "ERROR:Incorrect Input. Please try again."
         @start = 'p'
       end
     end
-
   end
 
   def game_start
     puts 'I have laid out my ships on the grid.'
-    puts 'You now need to lay out your two ships.'
-    puts 'The Cruiser is three units long and the Submarine is two units long.'
+    puts "You now need to lay out your #{@player.ships.length} ships."
+
     @player.place_ships
     start_turn
   end
-
-  # def player_setup
-  #   puts @player_board.render
-  #   puts "Enter the squares for the Cruiser (3 spaces):"
-  #   coord = gets.chomp.split
-  #   while !@player.board.valid_placement?(ship1, coord)
-  #     puts "Those are invalid coordinates. Please try again:"
-  #     coord = gets.chomp.split
-  #   end
-  #   @player_board.place(ship1, coord)
-  #   puts @player_board.render(true)
-  #
-  #   puts "Enter the squares for the Submarine (2 spaces):"
-  #   coord = gets.chomp.split
-  #   while !@player_board.valid_placement?(ship2, coord)
-  #     puts "Those are invalid coordinates. Please try again:"
-  #     coord = gets.chomp.split
-  #   end
-  #   @player_board.place(ship2, coord)
-  #   puts @player_board.render(true)
-  #
-  #   start_turn
-  # end
 
   def start_turn
     puts "=============COMPUTER BOARD============="
@@ -74,8 +72,6 @@ class Game
     end
 
     puts @comp.fire_shot(input)
-
-
     puts @player.fire_random_shot
 
     if @comp.ships.all? {|ship| ship.sunk?}

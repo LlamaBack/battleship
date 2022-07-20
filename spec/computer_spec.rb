@@ -1,4 +1,5 @@
 require './lib/computer'
+require './lib/board'
 
 RSpec.describe Computer do
   let(:comp) { Computer.new }

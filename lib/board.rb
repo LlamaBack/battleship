@@ -3,31 +3,20 @@ require "./lib/ship"
 
 class Board
   attr_reader :cells
-  def initialize(custom = false)
-    @cells = 
-    {}
-    if custom
-      puts "How many collumns?"
-      @col = gets.chomp
-      puts "How many rows?"
-      @row = gets.chomp
-      @x = "A"
-      @col.times {
-        @y = 1
-        @row.times {
-          @cells[@x + @y.to_s] = Cell.new(@x + @y.to_s)
-          @y += 1
-        }
-        @x = @x.next
+
+  def initialize(col = 4, row = 4)
+    @cells = {}
+    @col = col.to_i
+    @row = row.to_i
+    @y = "A"
+    @row.to_i.times {
+      @x = 1
+      @col.to_i.times {
+        @cells[@y + @x.to_s] = Cell.new(@y + @x.to_s)
+        @x += 1
       }
-    else
-      @cells = {
-        'A1'=>Cell.new('A1'),'A2'=>Cell.new('A2'),'A3'=>Cell.new('A3'),'A4'=>Cell.new('A4'),
-        'B1'=>Cell.new('B1'),'B2'=>Cell.new('B2'),'B3'=>Cell.new('B3'),'B4'=>Cell.new('B4'),
-        'C1'=>Cell.new('C1'),'C2'=>Cell.new('C2'),'C3'=>Cell.new('C3'),'C4'=>Cell.new('C4'),
-        'D1'=>Cell.new('D1'),'D2'=>Cell.new('D2'),'D3'=>Cell.new('D3'),'D4'=>Cell.new('D4')
-      }
-    end
+      @y = @y.next
+    }
   end
 
   def valid_coordinate?(place_on_board)
@@ -40,17 +29,17 @@ class Board
     elsif placements.any? {|coord| !@cells.key?(coord)}
       return false
     elsif !placements.each_cons(2).all? do |coord_1, coord_2|
-      (coord_2[0] == coord_1[0].next) ^ (coord_2[1] == coord_1[1].next) end
+      (coord_2.delete("^A-Z") == coord_1.delete("^A-Z").next) ^ (coord_2.delete("^0-9") == coord_1.delete("^0-9").next) end
       return false
-    elsif !placements.all? { |cell| @cells[cell].empty? }
+    elsif !placements.all? { |dot| @cells[dot].empty? }
       return false
     end
     return true
   end
 
-  def place(ship, cells)#cells represents spaces on
-    cells.each do |cell| #process through cells>look at the cell argument
-      @cells[cell].place_ship(ship)#place the ship into dot
+  def place(boat, dots)#dots represents spaces on
+    dots.each do |dot| #process through dots>look at the dot argument
+      @cells[dot].place_ship(boat)#place the ship into dot
     end
   end
 
@@ -62,8 +51,8 @@ class Board
 
     (ship.length - 1).times do
       if vertical
-        placements << "#{starting_coord[0].next}#{starting_coord[1]}"
-        starting_coord = "#{starting_coord[0].next}#{starting_coord[1]}"
+        placements << "#{starting_coord.delete("^A-Z").next}#{starting_coord.delete("^0-9")}"
+        starting_coord = "#{starting_coord.delete("^A-Z").next}#{starting_coord.delete("^0-9")}"
       elsif !vertical
         placements << starting_coord.next
         starting_coord = starting_coord.next
@@ -75,14 +64,25 @@ class Board
     else
       place(ship,placements)
     end
-
   end
 
   def render(actual = false)
-    rend = "  1 2 3 4 \n" +
-    "A #{@cells["A1"].render(actual)} #{@cells["A2"].render(actual)} #{@cells["A3"].render(actual)} #{@cells["A4"].render(actual)} \n" +
-    "B #{@cells["B1"].render(actual)} #{@cells["B2"].render(actual)} #{@cells["B3"].render(actual)} #{@cells["B4"].render(actual)} \n" +
-    "C #{@cells["C1"].render(actual)} #{@cells["C2"].render(actual)} #{@cells["C3"].render(actual)} #{@cells["C4"].render(actual)} \n" +
-    "D #{@cells["D1"].render(actual)} #{@cells["D2"].render(actual)} #{@cells["D3"].render(actual)} #{@cells["D4"].render(actual)} \n"
+    rend = "  "
+    collumn = 0
+    @col.times {rend += "#{collumn += 1} "}
+    rend += "\n"
+
+    @y = "A"
+    @row.to_i.times {
+      @x = 1
+      rend += "#{@y} "
+      @col.to_i.times {
+        rend += "#{@cells[@y + @x.to_s].render(actual)} "
+        @x += 1
+      }
+      rend += "\n"
+      @y = @y.next
+    }
+    rend
   end
 end
