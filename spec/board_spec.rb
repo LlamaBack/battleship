@@ -5,14 +5,16 @@ require './lib/cell'
 
 RSpec.describe Board do
   let(:board) { Board.new() }
+  let(:cruiser) { Ship.new("Cruiser", 3) } 
+  let(:submarine) { Ship.new("Submarine", 2) } 
 
-  it 'class should exist' do
+  it 'the class should exist' do
     expect(board).to be_an_instance_of(Board)
   end
 
-  it 'the cells should be link back to the Cell class'do
+  it 'cells should be linked to the Cell class'do
     expect(board.cells['A1']).to be_an_instance_of Cell
-  end #cells are coordinates on the board
+  end 
 
   it 'should inform if a coordinate is on the board' do
     expect(board.valid_coordinate?('A1')).to eq(true)
@@ -24,9 +26,6 @@ RSpec.describe Board do
   end
 
   it 'should inform if a placement for a ship on the board is valid or not' do
-    cruiser = Ship.new("Cruiser", 3)
-    submarine = Ship.new("Submarine", 2)
-
     #ship length equals coordinates length
     expect(cruiser.length).to eq(["A1", "A2", "A3"].length)
     expect(submarine.length).to eq(["B1", "C1"].length)
@@ -49,7 +48,7 @@ RSpec.describe Board do
 
   it 'the board should be able to place a ship in its cells' do
     #multiple Cells will contain the same ship
-    cruiser = Ship.new("Cruiser", 3)
+    
     board.place(cruiser, ["A1", "A2", "A3"])
 
     cell_1 = board.cells["A1"]
@@ -64,16 +63,16 @@ RSpec.describe Board do
   end
 
   it 'valid placements checks if a ship would overlap with another' do
-    cruiser = Ship.new("Cruiser", 3)
+
     board.place(cruiser, ["A1", "A2", "A3"])
     # require 'pry';binding.pry
 
-    submarine = Ship.new("Submarine", 2)
+  
     expect(board.valid_placement?(submarine, ["A1", "B1"])).to eq(false)
   end
 
   it 'render prints out the whole board' do
-    cruiser = Ship.new("Cruiser", 3)
+
     board.place(cruiser, ["A1", "A2", "A3"])
     expect(board.render).to eq(
       "  1 2 3 4 \n" +
@@ -91,10 +90,8 @@ RSpec.describe Board do
     )
   end
 
-  #***!!
-  #this test is failing at the moment
-  #!!***
-  it 'renders any size board' do
+  #***input from user required***
+    it 'renders any size board' do
     custom_board = Board.new(true)
     expect(board.render).to eq(
       "  1 2 3 4 5 \n" +
@@ -107,7 +104,6 @@ RSpec.describe Board do
   end
 
   it 'should display the cells status in a formatted grid. ' do
-    cruiser = Ship.new("Cruiser", 3)
     board.place(cruiser, ["A1", "A2", "A3"])
     # require 'pry';binding.pry
 

@@ -3,7 +3,6 @@ require "./lib/ship"
 
 class Board
   attr_reader :cells
-
   def initialize(custom = false)#we did not need cells in the () as we dont actually use it
     @cells = 
     {}
@@ -43,20 +42,16 @@ class Board
     elsif !placements.each_cons(2).all? do |coord_1, coord_2|
       (coord_2[0] == coord_1[0].next) ^ (coord_2[1] == coord_1[1].next) end
       return false
-    elsif !placements.all? { |dot| @cells[dot].empty? }
+    elsif !placements.all? { |cell| @cells[cell].empty? }
       return false
     end
     return true
   end
 
-  def place(boat, dots)#dots represents spaces on
-
-
-    dots.each do |dot| #process through dots>look at the dot argument
-      @cells[dot].place_ship(boat)#place the ship into dot
+  def place(ship, cells)#dots represents spaces on
+    cells.each do |cell| #process through dots>look at the dot argument
+      @cells[cell].place_ship(ship)#place the ship into dot
     end
-
-
   end
 
   def place_rand(ship)
