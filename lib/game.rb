@@ -60,13 +60,13 @@ class Game
 
   def start_turn
     puts "=============COMPUTER BOARD============="
-    puts @comp_board.render
+    puts @comp.render
     puts "==============PLAYER BOARD=============="
-    puts @player_board.render(true)
+    puts @player.render(true)
 
     puts "Enter the coordinate for your shot:"
     input = gets.chomp
-    while !@player_board.valid_coordinate(input)
+    while !@player.valid_coordinate(input)
       puts "Please enter a valid coordinate:"
       input = gets.chomp
     end

@@ -13,8 +13,8 @@ class Computer
   end
 
   def place_random_ships
-    @comp_board.place_rand(ship1)
-    @comp_board.place_rand(ship2)
+    @board.place_rand(@ship1)
+    @board.place_rand(@ship2)
   end
 
   def fire_random_shot

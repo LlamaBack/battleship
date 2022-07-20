@@ -9,7 +9,6 @@ class Player
     @ship1 = Ship.new("Cruiser", 3)
     @ship2 = Ship.new("Submarine", 2)
     @ships = [@ship1, @ship2]
-    place_ships
   end
 
   def place_ships
@@ -41,13 +40,13 @@ class Player
   def fire_shot(coord)
     cell = @board.cells[coord]
     if cell.fired_upon?
-      puts "You have already shot on #{@coordinate}. Please pay attention."
+      puts "You have already shot on #{coord}. Please pay attention."
     elsif cell.empty?
-      puts "Your shot on #{@coordinate} was a miss."
-    elsif cell.@ship.health == 1
-      puts "Your shot on #{@coordinate} sank the #{@ship}!"
+      puts "Your shot on #{coord} was a miss."
+    elsif cell[coord].health == 1
+      puts "Your shot on #{coord} sank the #{cell.ship}!"
     elsif !cell.empty?
-      puts "Your shot on #{@coordinate} was a hit!"
+      puts "Your shot on #{coord} was a hit!"
     end
     cell.fire_upon
   end
