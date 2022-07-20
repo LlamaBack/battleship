@@ -9,7 +9,7 @@ class Computer
     @ship1 = Ship.new("Cruiser", 3)
     @ship2 = Ship.new("Submarine", 2)
     @ships = [@ship1, @ship2]
-    place_random_ships
+    # place_random_ships  #let mistakenly?***
   end
 
   def place_random_ships

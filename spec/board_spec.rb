@@ -8,7 +8,7 @@ RSpec.describe Board do
   let(:cruiser) { Ship.new("Cruiser", 3) } 
   let(:submarine) { Ship.new("Submarine", 2) } 
 
-  it 'the class should exist' do
+  it 'should exist as a class' do
     expect(board).to be_an_instance_of(Board)
   end
 
@@ -74,7 +74,6 @@ RSpec.describe Board do
     expect(board.valid_placement?(submarine, ["A1", "B1"])).to eq(false)
   end
 
-
   context 'the board can rendor itself' do
     it 'should be a grid' do
       expect(board.render).to eq(
@@ -110,7 +109,7 @@ RSpec.describe Board do
       )
     end
 
-    it 'should display the cells status on grid when not revealed' do
+    it 'should display the cells status on grid when NOT revealed' do
       board.place(cruiser, ["A1", "A2", "A3"])
       board.place(submarine, ["C3", "D3"])
       cell_1 = board.cells["A1"]
@@ -121,6 +120,7 @@ RSpec.describe Board do
       cell_42.fire_upon
       cell_32 = board.cells["C3"]
       cell_32.fire_upon
+      
       expect(board.render).to eq(
       "  1 2 3 4 \n" +
       "A H . . . \n" +

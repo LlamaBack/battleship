@@ -1,12 +1,11 @@
 require './lib/game'
 
 RSpec.describe Game do
-  before :each do
-    @game = Game.new
+  let(:game) { Game.new }
+  
+  it 'should exist as a class' do
+    expect(game).to be_an_instance_of Game
   end
-  
-  
-  it 'Game exists' do
-    expect(@game).to be_an_instance_of Game
+
   end
 end

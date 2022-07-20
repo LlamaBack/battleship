@@ -3,7 +3,7 @@ require "./lib/ship"
 
 class Board
   attr_reader :cells
-  def initialize(custom = false)#we did not need cells in the () as we dont actually use it
+  def initialize(custom = false)
     @cells = 
     {}
     if custom

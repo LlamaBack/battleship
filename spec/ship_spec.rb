@@ -5,7 +5,7 @@ RSpec.describe Ship do
   let(:boat_2) { Ship.new('Submarine', 2) } 
 
   context 'Ship class characteristics'do
-    it'the class should exist'do
+    it'should exist as a class'do
       expect(boat_1).to be_an_instance_of (Ship)
     end
 
