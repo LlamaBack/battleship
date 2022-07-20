@@ -1,4 +1,3 @@
-# require 'rspec'
 require './lib/board'
 require './lib/ship'
 require './lib/cell'
@@ -96,16 +95,15 @@ RSpec.describe Board do
       )
     end
 
-    #***input from user required***
-      xit 'should be any size board the user wants' do
-      custom_board = Board.new(true)
-      expect(board.render).to eq(
-        "  1 2 3 4 5 \n" +
-        "A . . . . . \n" +
-        "B . . . . . \n" +
-        "C . . . . . \n" +
-        "D . . . . . \n" +
-        "E . . . . . \n"
+    it 'should be any size board the user wants' do
+      custom_board = Board.new(5, 5)
+      expect(custom_board.render).to eq(
+      "  1 2 3 4 5 \n" +
+      "A . . . . . \n" +
+      "B . . . . . \n" +
+      "C . . . . . \n" +
+      "D . . . . . \n" +
+      "E . . . . . \n"
       )
     end
 
@@ -129,7 +127,7 @@ RSpec.describe Board do
       "D . . X . \n")
     end
 
-      it 'should display the cells status in the grid when revealed' do
+    it 'should display the cells status in the grid when revealed' do
       board.place(cruiser, ["A1", "A2", "A3"])
       board.place(submarine, ["C3", "D3"])
       cell_12 = board.cells["A3"]
