@@ -1,8 +1,9 @@
 require './lib/computer'
 
-Rspec.describe Computer do
-  it 'Computer should exist' do
-    comp = Computer.new
+RSpec.describe Computer do
+  let(:comp) { Computer.new }
+
+  it 'should exist as a class' do
     expect(comp).to be_an_instance_of(Computer)
   end
 end

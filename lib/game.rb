@@ -12,13 +12,15 @@ class Game
       puts 'Welcome to BATTLESHIP'
       puts 'Enter p to play. Enter q to quit.'
       @start = gets.chomp
-      if @start == 'p'
-        @comp = Computer.new
-        @player = Player.new
-        game_start
-      elsif @start == 'q'
-        puts 'Goodbye.'
-        break
+        if @start == 'p'
+          @comp = Computer.new
+          @player = Player.new
+          game_start
+          
+        elsif @start == 'q'
+          puts 'Goodbye.'
+          break
+        
       else
         puts "ERROR:Incorrect Input. Please try again."
         @start = 'p'

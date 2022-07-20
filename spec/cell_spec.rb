@@ -9,7 +9,7 @@ RSpec.describe Cell do
   let(:cell_4) { Cell.new("A4") }
   let(:cell_5) { Cell.new("A5") } 
   
-  it 'the class should exist'do
+  it 'should exist as a class'do
     expect(cell_1).to be_an_instance_of(Cell)
   end
 

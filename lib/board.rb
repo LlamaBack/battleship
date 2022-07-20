@@ -3,7 +3,7 @@ require "./lib/ship"
 
 class Board
   attr_reader :cells
-  def initialize(custom = false)#we did not need cells in the () as we dont actually use it
+  def initialize(custom = false)
     @cells = 
     {}
     if custom
@@ -48,8 +48,8 @@ class Board
     return true
   end
 
-  def place(ship, cells)#dots represents spaces on
-    cells.each do |cell| #process through dots>look at the dot argument
+  def place(ship, cells)#cells represents spaces on
+    cells.each do |cell| #process through cells>look at the cell argument
       @cells[cell].place_ship(ship)#place the ship into dot
     end
   end
