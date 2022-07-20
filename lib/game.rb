@@ -71,8 +71,10 @@ class Game
       input = gets.chomp
     end
 
-    @comp.fire_shot(input)
-    @player.fire_random_shot
+    puts @comp.fire_shot(input)
+
+
+    puts @player.fire_random_shot
 
     if @comp.ships.all? {|ship| ship.sunk?}
       puts "You won!"

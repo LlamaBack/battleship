@@ -61,14 +61,14 @@ class Player
     if cell.fired_upon?
       fire_random_shot
     else
-      if cell.empty?
-        puts "My shot on #{random_coord} was a miss."
-      elsif cell.ship.health == 1
-        puts "My shot on #{random_coord} sank the #{cell.ship.name}!"
-      elsif !cell.empty?
-        puts "My shot on #{random_coord} was a hit!"
-      end
       cell.fire_upon
+      if cell.empty?
+        return "My shot on #{random_coord} was a miss."
+      elsif cell.ship.health == 1
+        return "My shot on #{random_coord} sank the #{cell.ship.name}!"
+      elsif !cell.empty?
+        return "My shot on #{random_coord} was a hit!"
+      end
     end
   end
 
