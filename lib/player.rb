@@ -22,24 +22,6 @@ class Player
       @board.place(ship, coord)
       puts @board.render(true)
     end
-    #
-    # puts "Enter the squares for the Cruiser (3 spaces):"
-    # coord = gets.chomp.split
-    # while !@board.valid_placement?(@ship1, coord)
-    #   puts "Those are invalid coordinates. Please try again:"
-    #   coord = gets.chomp.split
-    # end
-    # @board.place(@ship1, coord)
-    # puts @board.render(true)
-    #
-    # puts "Enter the squares for the Submarine (2 spaces):"
-    # coord = gets.chomp.split
-    # while !@board.valid_placement?(@ship2, coord)
-    #   puts "Those are invalid coordinates. Please try again:"
-    #   coord = gets.chomp.split
-    # end
-    # @board.place(@ship2, coord)
-    # puts @board.render(true)
   end
 
   def fire_shot(coord)
@@ -60,9 +42,6 @@ class Player
     keys = @board.cells.keys
     random_coord = keys[rand(keys.size)]
     cell = @board.cells[random_coord]
-    # while cell.fired_upon do
-    #   random_coord = keys[rand(keys.size)]
-    # end
     if cell.fired_upon?
       fire_random_shot
     else
@@ -76,7 +55,4 @@ class Player
       end
     end
   end
-
-
-
 end

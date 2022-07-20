@@ -7,4 +7,4 @@ RSpec.describe Game do
     expect(game).to be_an_instance_of Game
   end
 
-  end
+end

@@ -7,7 +7,6 @@ require './lib/player'
 class Game
   def initialize
     @start = 'p'
-
     while @start == 'p'
       puts 'Welcome to BATTLESHIP'
       puts 'Enter p to play. Enter q to quit.'
@@ -49,7 +48,6 @@ class Game
         @start = 'p'
       end
     end
-
   end
 
   def game_start
@@ -81,7 +79,6 @@ class Game
     elsif @player.ships.all? {|ship| ship.sunk?}
       puts "I won!"
     else
-      # require "pry";binding.pry
       start_turn
     end
   end

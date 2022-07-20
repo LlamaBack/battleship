@@ -64,7 +64,6 @@ class Board
     else
       place(ship,placements)
     end
-
   end
 
   def render(actual = false)
@@ -81,7 +80,7 @@ class Board
         rend += "#{@cells[@y + @x.to_s].render(actual)} "
         @x += 1
       }
-      rend += " \n"
+      rend += "\n"
       @y = @y.next
     }
     rend
