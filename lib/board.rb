@@ -2,8 +2,8 @@ require "./lib/cell"
 require "./lib/ship"
 
 class Board
-  attr_reader :cells, :place
-  
+  attr_reader :cells
+
   def initialize(custom = false)#we did not need cells in the () as we dont actually use it
     @cells = 
     {}
@@ -12,7 +12,6 @@ class Board
       @col = gets.chomp
       puts "How many rows?"
       @row = gets.chomp
-
       @x = "A"
       @col.times {
         @y = 1
@@ -22,7 +21,6 @@ class Board
         }
         @x = @x.next
       }
-
     else
       @cells = {
         'A1'=>Cell.new('A1'),'A2'=>Cell.new('A2'),'A3'=>Cell.new('A3'),'A4'=>Cell.new('A4'),
@@ -34,31 +32,55 @@ class Board
   end
 
   def valid_coordinate?(place_on_board)
-      if @cells.has_key?(place_on_board)
-        true
-      else
-        false
-      end
+    @cells.has_key?(place_on_board)
   end
-  
+
   def valid_placement?(ship, placements)
     if ship.length != placements.length
       return false
-    
+    elsif placements.any? {|coord| !@cells.key?(coord)}
+      return false
     elsif !placements.each_cons(2).all? do |coord_1, coord_2|
       (coord_2[0] == coord_1[0].next) ^ (coord_2[1] == coord_1[1].next) end
       return false
-
-    elsif !placements.all? { |dot| @cells[dot].empty? }     
+    elsif !placements.all? { |dot| @cells[dot].empty? }
       return false
     end
     return true
   end
 
-  def place(boat, dots)#dots represents spaces on board
-      dots.each do |dot| #process through dots>look at the dot argument
-        @cells[dot].place_ship(boat)#place the ship into dot
+  def place(boat, dots)#dots represents spaces on
+
+
+    dots.each do |dot| #process through dots>look at the dot argument
+      @cells[dot].place_ship(boat)#place the ship into dot
+    end
+
+
+  end
+
+  def place_rand(ship)
+    vertical = [true, false].sample
+    keys = @cells.keys
+    starting_coord = keys[rand(keys.size)]
+    placements = [starting_coord]
+
+    (ship.length - 1).times do
+      if vertical
+        placements << "#{starting_coord[0].next}#{starting_coord[1]}"
+        starting_coord = "#{starting_coord[0].next}#{starting_coord[1]}"
+      elsif !vertical
+        placements << starting_coord.next
+        starting_coord = starting_coord.next
       end
+    end
+
+    if !valid_placement?(ship, placements)
+      place_rand(ship)
+    else
+      place(ship,placements)
+    end
+
   end
 
   def render(actual = false)
