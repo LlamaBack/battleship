@@ -6,7 +6,6 @@ class Board
 
   def initialize(col = 4, row = 4)
     @cells = {}
-    # if custom
     @col = col.to_i
     @row = row.to_i
     @y = "A"
@@ -30,7 +29,7 @@ class Board
     elsif placements.any? {|coord| !@cells.key?(coord)}
       return false
     elsif !placements.each_cons(2).all? do |coord_1, coord_2|
-      (coord_2[0] == coord_1[0].next) ^ (coord_2[1] == coord_1[1].next) end
+      (coord_2.delete("^A-Z") == coord_1.delete("^A-Z").next) ^ (coord_2.delete("^0-9") == coord_1.delete("^0-9").next) end
       return false
     elsif !placements.all? { |dot| @cells[dot].empty? }
       return false
@@ -56,8 +55,8 @@ class Board
 
     (ship.length - 1).times do
       if vertical
-        placements << "#{starting_coord[0].next}#{starting_coord[1]}"
-        starting_coord = "#{starting_coord[0].next}#{starting_coord[1]}"
+        placements << "#{starting_coord.delete("^A-Z").next}#{starting_coord.delete("^0-9")}"
+        starting_coord = "#{starting_coord.delete("^A-Z").next}#{starting_coord.delete("^0-9")}"
       elsif !vertical
         placements << starting_coord.next
         starting_coord = starting_coord.next
@@ -90,11 +89,5 @@ class Board
       @y = @y.next
     }
     rend
-    #
-    # rend = "  1 2 3 4 \n" +
-    # "A #{@cells["A1"].render(actual)} #{@cells["A2"].render(actual)} #{@cells["A3"].render(actual)} #{@cells["A4"].render(actual)} \n" +
-    # "B #{@cells["B1"].render(actual)} #{@cells["B2"].render(actual)} #{@cells["B3"].render(actual)} #{@cells["B4"].render(actual)} \n" +
-    # "C #{@cells["C1"].render(actual)} #{@cells["C2"].render(actual)} #{@cells["C3"].render(actual)} #{@cells["C4"].render(actual)} \n" +
-    # "D #{@cells["D1"].render(actual)} #{@cells["D2"].render(actual)} #{@cells["D3"].render(actual)} #{@cells["D4"].render(actual)} \n"
   end
 end

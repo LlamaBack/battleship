@@ -16,7 +16,7 @@ class Game
         puts "Enter c for Custom Board. Enter any other button for Standard Board. "
         option = gets.chomp
         if option == 'c'
-          puts "How many collumns?"
+          puts "How many columns?"
           col = gets.chomp
           puts "How many rows"
           row = gets.chomp
@@ -47,29 +47,6 @@ class Game
     start_turn
   end
 
-  # def player_setup
-  #   puts @player_board.render
-  #   puts "Enter the squares for the Cruiser (3 spaces):"
-  #   coord = gets.chomp.split
-  #   while !@player.board.valid_placement?(ship1, coord)
-  #     puts "Those are invalid coordinates. Please try again:"
-  #     coord = gets.chomp.split
-  #   end
-  #   @player_board.place(ship1, coord)
-  #   puts @player_board.render(true)
-  #
-  #   puts "Enter the squares for the Submarine (2 spaces):"
-  #   coord = gets.chomp.split
-  #   while !@player_board.valid_placement?(ship2, coord)
-  #     puts "Those are invalid coordinates. Please try again:"
-  #     coord = gets.chomp.split
-  #   end
-  #   @player_board.place(ship2, coord)
-  #   puts @player_board.render(true)
-  #
-  #   start_turn
-  # end
-
   def start_turn
     puts "=============COMPUTER BOARD============="
     puts @comp.board.render
@@ -84,8 +61,6 @@ class Game
     end
 
     puts @comp.fire_shot(input)
-
-
     puts @player.fire_random_shot
 
     if @comp.ships.all? {|ship| ship.sunk?}
