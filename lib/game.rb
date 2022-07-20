@@ -13,16 +13,29 @@ class Game
       puts 'Enter p to play. Enter q to quit.'
       @start = gets.chomp
       if @start == 'p'
-        puts "Enter c for Custom Board. Enter any other button for Standard Board. "
+        puts "Enter c for Custom Board. Enter any other button for Standard Board."
         option = gets.chomp
         if option == 'c'
           puts "How many columns?"
-          col = gets.chomp
+          col = gets.chomp.to_i
           puts "How many rows"
-          row = gets.chomp
+          row = gets.chomp.to_i
 
-          @comp = Computer.new(col, row)
-          @player = Player.new(col, row)
+          @ships = []
+          puts "How many ships?"
+          num_ships = gets.chomp.to_i
+          ship_num = 0
+          num_ships.times do
+            puts "What is the name of ship #{ship_num += 1}?"
+            name = gets.chomp
+            puts "What is the length of that ship?"
+            length = gets.chomp.to_i
+            @ships << Ship.new(name, length)
+          end
+
+          @comp = Computer.new(col, row, @ships)
+          @player = Player.new(col, row, @ships)
+
         else
           @comp = Computer.new
           @player = Player.new
@@ -41,8 +54,8 @@ class Game
 
   def game_start
     puts 'I have laid out my ships on the grid.'
-    puts 'You now need to lay out your two ships.'
-    puts 'The Cruiser is three units long and the Submarine is two units long.'
+    puts "You now need to lay out your #{@player.ships.length} ships."
+
     @player.place_ships
     start_turn
   end

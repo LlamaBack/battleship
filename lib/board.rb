@@ -38,13 +38,9 @@ class Board
   end
 
   def place(boat, dots)#dots represents spaces on
-
-
     dots.each do |dot| #process through dots>look at the dot argument
       @cells[dot].place_ship(boat)#place the ship into dot
     end
-
-
   end
 
   def place_rand(ship)

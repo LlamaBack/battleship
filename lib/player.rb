@@ -4,37 +4,42 @@ require './lib/cell'
 
 class Player
   attr_reader :board, :ships
-  def initialize(row = 4, col = 4)
+  def initialize(row = 4, col = 4,  ships = [Ship.new("Cruiser", 3), Ship.new("Submarine", 2)])
     @board = Board.new(row, col)
-    @ship1 = Ship.new("Cruiser", 3)
-    @ship2 = Ship.new("Submarine", 2)
-    @ships = [@ship1, @ship2]
-  end
-
-  def place_ships
-
+    @ships = ships
   end
 
   def place_ships
     puts @board.render
 
-    puts "Enter the squares for the Cruiser (3 spaces):"
-    coord = gets.chomp.split
-    while !@board.valid_placement?(@ship1, coord)
-      puts "Those are invalid coordinates. Please try again:"
+    @ships.map do |ship|
+      puts "Enter the squares for the #{ship.name} (#{ship.length} spaces):"
       coord = gets.chomp.split
+      while !@board.valid_placement?(ship, coord)
+        puts "Those are invalid coordinates. Please try again:"
+        coord = gets.chomp.split
+      end
+      @board.place(ship, coord)
+      puts @board.render(true)
     end
-    @board.place(@ship1, coord)
-    puts @board.render(true)
-
-    puts "Enter the squares for the Submarine (2 spaces):"
-    coord = gets.chomp.split
-    while !@board.valid_placement?(@ship2, coord)
-      puts "Those are invalid coordinates. Please try again:"
-      coord = gets.chomp.split
-    end
-    @board.place(@ship2, coord)
-    puts @board.render(true)
+    #
+    # puts "Enter the squares for the Cruiser (3 spaces):"
+    # coord = gets.chomp.split
+    # while !@board.valid_placement?(@ship1, coord)
+    #   puts "Those are invalid coordinates. Please try again:"
+    #   coord = gets.chomp.split
+    # end
+    # @board.place(@ship1, coord)
+    # puts @board.render(true)
+    #
+    # puts "Enter the squares for the Submarine (2 spaces):"
+    # coord = gets.chomp.split
+    # while !@board.valid_placement?(@ship2, coord)
+    #   puts "Those are invalid coordinates. Please try again:"
+    #   coord = gets.chomp.split
+    # end
+    # @board.place(@ship2, coord)
+    # puts @board.render(true)
   end
 
   def fire_shot(coord)
@@ -64,7 +69,7 @@ class Player
       cell.fire_upon
       if cell.empty?
         return "My shot on #{random_coord} was a miss."
-      elsif cell.ship.health == 1
+      elsif cell.ship.sunk?
         return "My shot on #{random_coord} sank the #{cell.ship.name}!"
       elsif !cell.empty?
         return "My shot on #{random_coord} was a hit!"
