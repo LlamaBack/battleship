@@ -65,7 +65,6 @@ class Board
     placements = [starting_coord]
 
     (ship.length - 1).times do
-      # require 'pry'; binding.pry
       if vertical
         placements << "#{starting_coord[0].next}#{starting_coord[1]}"
         starting_coord = "#{starting_coord[0].next}#{starting_coord[1]}"
@@ -74,7 +73,6 @@ class Board
         starting_coord = starting_coord.next
       end
     end
-    # require 'pry'; binding.pry
 
     if !valid_placement?(ship, placements)
       place_rand(ship)
