@@ -18,6 +18,7 @@ class Computer
   end
 
   def fire_random_shot
+    keys = @board.cells.keys
     random_coord = keys[rand(keys.size)]
     cell = @board.cells[random_coord]
     # while cell.fired_upon do
@@ -27,13 +28,27 @@ class Computer
       fire_random_shot
     else
       if cell.empty?
-        puts "My shot on #{random_coord} was a miss."
-      elsif cell[random_coord].health == 1
-        puts "My shot on #{random_coord} sank the #{cell.ship}!"
+        puts "Your shot on #{random_coord} was a miss."
+      elsif cell.ship.health == 1
+        puts "Your shot on #{random_coord} sank the #{cell.ship.name}!"
       elsif !cell.empty?
-        puts "My shot on #{random_coord} was a hit!"
+        puts "Your shot on #{random_coord} was a hit!"
       end
       cell.fire_upon
     end
+  end
+
+  def fire_shot(coord)
+    cell = @board.cells[coord]
+    if cell.fired_upon?
+      puts "You have already shot on #{coord}. Please pay attention."
+    elsif cell.empty?
+      puts "Your shot on #{coord} was a miss."
+    elsif cell.ship.health == 1
+      puts "Your shot on #{coord} sank the #{cell.ship.name}!"
+    elsif !cell.empty?
+      puts "Your shot on #{coord} was a hit!"
+    end
+    cell.fire_upon
   end
 end

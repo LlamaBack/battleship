@@ -1,4 +1,3 @@
-
 require './lib/board'
 require './lib/ship'
 require './lib/cell'
@@ -61,19 +60,19 @@ class Game
 
   def start_turn
     puts "=============COMPUTER BOARD============="
-    puts @comp.render
+    puts @comp.board.render
     puts "==============PLAYER BOARD=============="
-    puts @player.render(true)
+    puts @player.board.render(true)
 
     puts "Enter the coordinate for your shot:"
     input = gets.chomp
-    while !@player.valid_coordinate(input)
+    while !@player.board.valid_coordinate?(input)
       puts "Please enter a valid coordinate:"
       input = gets.chomp
     end
 
-    @player.fire_shot(input)
-    @comp.fire_random_shot
+    @comp.fire_shot(input)
+    @player.fire_random_shot
 
     if @comp.ships.all? {|ship| ship.sunk?}
       puts "You won!"
