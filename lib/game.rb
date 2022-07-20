@@ -32,10 +32,8 @@ class Game
             length = gets.chomp.to_i
             @ships << Ship.new(name, length)
           end
-
           @comp = Computer.new(col, row, @ships)
           @player = Player.new(col, row, @ships)
-
         else
           @comp = Computer.new
           @player = Player.new
@@ -81,6 +79,7 @@ class Game
     elsif @player.ships.all? {|ship| ship.sunk?}
       puts "I won!"
     else
+      # require "pry";binding.pry
       start_turn
     end
   end

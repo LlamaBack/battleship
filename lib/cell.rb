@@ -20,6 +20,7 @@ class Cell
   end
 
   def fire_upon
+    require "pry" ;binding.pry
     if @ship != nil
       @ship.hit
     end
