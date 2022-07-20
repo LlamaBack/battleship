@@ -4,10 +4,19 @@ require './lib/cell'
 
 class Computer
   attr_reader :board, :ships
+<<<<<<< HEAD
   def initialize(row = 4, col = 4, ships = [Ship.new("Cruiser", 3), Ship.new("Submarine", 2)])
     @board = Board.new(row, col)
     @ships = ships
     place_random_ships
+=======
+  def initialize
+    @board = Board.new
+    @ship1 = Ship.new("Cruiser", 3)
+    @ship2 = Ship.new("Submarine", 2)
+    @ships = [@ship1, @ship2]
+    # place_random_ships  #let mistakenly?***
+>>>>>>> 7f131e0d5f2e04ff5b52febd89c9aaa2a980512a
   end
 
   def place_random_ships
