@@ -4,8 +4,8 @@ require './lib/cell'
 
 class Player
   attr_reader :board, :ships
-  def initialize
-    @board = Board.new
+  def initialize(row = 4, col = 4)
+    @board = Board.new(row, col)
     @ship1 = Ship.new("Cruiser", 3)
     @ship2 = Ship.new("Submarine", 2)
     @ships = [@ship1, @ship2]

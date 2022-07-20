@@ -13,8 +13,20 @@ class Game
       puts 'Enter p to play. Enter q to quit.'
       @start = gets.chomp
       if @start == 'p'
-        @comp = Computer.new
-        @player = Player.new
+        puts "Enter c for Custom Board. Enter any other button for Standard Board. "
+        option = gets.chomp
+        if option == 'c'
+          puts "How many collumns?"
+          col = gets.chomp
+          puts "How many rows"
+          row = gets.chomp
+
+          @comp = Computer.new(col, row)
+          @player = Player.new(col, row)
+        else
+          @comp = Computer.new
+          @player = Player.new
+        end
         game_start
       elsif @start == 'q'
         puts 'Goodbye.'
